@@ -103,12 +103,12 @@ const Hero = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
-            <Link 
+            {/* <Link 
               to="/servicios" 
               className="bg-celestial-500 hover:bg-celestial-600 text-white font-medium py-3 px-6 rounded-md transition duration-300 text-center"
             >
               Nuestros Servicios
-            </Link>
+            </Link> */}
             <Link 
               to="/grupos-crecimiento" 
               className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium py-3 px-6 rounded-md transition duration-300 flex items-center justify-center"

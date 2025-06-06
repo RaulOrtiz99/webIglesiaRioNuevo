@@ -71,7 +71,7 @@ const Navbar = () => {
             to="/donar" 
             className="hidden md:inline-block bg-celestial-500 hover:bg-celestial-600 text-white py-2 px-4 rounded-md transition duration-300"
           >
-            Donar
+            Siembra de fé
           </Link>
 
           {/* Mobile menu button */}

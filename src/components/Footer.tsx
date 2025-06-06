@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Youtube, Twitter, MapPin, Phone, Mail } from 'lucide-react';
+import { Facebook, Instagram, Youtube, MapPin, Phone, Mail } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -14,18 +14,18 @@ const Footer = () => {
               Somos una comunidad de fe comprometida con compartir el amor de Dios y transformar vidas a través de su palabra.
             </p>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" className="text-gray-400 hover:text-celestial-400 transition">
+              <a href="https://www.facebook.com/IEMRioNuevo" className="text-gray-400 hover:text-celestial-400 transition">
                 <Facebook size={20} />
               </a>
-              <a href="https://instagram.com" className="text-gray-400 hover:text-celestial-400 transition">
+              <a href="https://www.instagram.com/iglesiarionuevo/" className="text-gray-400 hover:text-celestial-400 transition">
                 <Instagram size={20} />
               </a>
-              <a href="https://youtube.com" className="text-gray-400 hover:text-celestial-400 transition">
+              <a href="https://www.youtube.com/@iglesiaevangelicamundialri4840" className="text-gray-400 hover:text-celestial-400 transition">
                 <Youtube size={20} />
               </a>
-              <a href="https://tiktok.com" className="text-gray-400 hover:text-celestial-400 transition">
+              {/* <a href="https://tiktok.com" className="text-gray-400 hover:text-celestial-400 transition">
                 <Twitter size={20} />
-              </a>
+              </a> */}
             </div>
           </div>
 
@@ -46,7 +46,7 @@ const Footer = () => {
                 <Link to="/misiones" className="text-gray-400 hover:text-white transition">Misiones</Link>
               </li>
               <li>
-                <Link to="/donar" className="text-gray-400 hover:text-white transition">Donar</Link>
+                <Link to="/donar" className="text-gray-400 hover:text-white transition">Siembra de fé</Link>
               </li>
             </ul>
           </div>
