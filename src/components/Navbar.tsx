@@ -67,12 +67,12 @@ const Navbar = () => {
             ))}
           </div>
 
-          <Link 
+          {/* <Link 
             to="/donar" 
             className="hidden md:inline-block bg-celestial-500 hover:bg-celestial-600 text-white py-2 px-4 rounded-md transition duration-300"
           >
             Siembra de fé
-          </Link>
+          </Link> */}
 
           {/* Mobile menu button */}
           <button

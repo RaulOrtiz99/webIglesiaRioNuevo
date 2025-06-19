@@ -1,94 +1,68 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Calendar, ArrowRight, ChevronRight, Image, Music, Camera } from 'lucide-react';
+import {
+  Calendar,
+  ArrowRight,
+  Clock,
+  MapPin,
+  ChevronRight} from 'lucide-react';
 
-const events = [
-  {
-    title: 'Noche de Adoración',
-    date: '15 Mayo, 2025',
-    time: '7:00 PM',
-    location: 'Auditorio Principal',
-    image: 'https://images.pexels.com/photos/1310847/pexels-photo-1310847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    title: 'Campamento Juvenil',
-    date: '5-7 Junio, 2025',
-    time: 'Todo el día',
-    location: 'Montañas Verdes',
-    image: 'https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    title: 'Taller de Liderazgo',
-    date: '20 Mayo, 2025',
-    time: '5:00 PM',
-    location: 'Sala Multiusos',
-    image: 'https://images.pexels.com/photos/8101622/pexels-photo-8101622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  }
-];
+interface Activity {
+  id: number;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  image_url: string;
+}
 
-const sermonSeries = [
-  {
-    title: 'Identidad en Cristo',
-    description: 'Descubre quién eres realmente en Cristo y vive de acuerdo a tu verdadera identidad.',
-    episodes: 5,
-    image: 'https://images.pexels.com/photos/7176319/pexels-photo-7176319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    title: 'Relaciones Saludables',
-    description: 'Aprende a construir relaciones que honren a Dios y te ayuden a crecer como persona.',
-    episodes: 4,
-    image: 'https://images.pexels.com/photos/6647037/pexels-photo-6647037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  },
-  {
-    title: 'Fe en Acción',
-    description: 'Cómo vivir una fe relevante y práctica en el mundo actual.',
-    episodes: 6,
-    image: 'https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  }
-];
-
-const galleryImages = [
-  'https://images.pexels.com/photos/8942790/pexels-photo-8942790.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  'https://images.pexels.com/photos/6646947/pexels-photo-6646947.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  'https://images.pexels.com/photos/8101615/pexels-photo-8101615.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  'https://images.pexels.com/photos/6647015/pexels-photo-6647015.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  'https://images.pexels.com/photos/8101668/pexels-photo-8101668.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-  'https://images.pexels.com/photos/1310847/pexels-photo-1310847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-];
+interface SermonSeries {
+  id: number;
+  title: string;
+  description: string;
+  episodes: number;
+  image_url: string;
+}
 
 const FamiliaJoven = () => {
-  const { ref: introRef, inView: introInView } = useInView({
-    threshold: 0.3,
-    triggerOnce: true
-  });
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [series, setSeries] = useState<SermonSeries[]>([]);
   
-  const { ref: eventsRef, inView: eventsInView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-  
-  const { ref: sermonsRef, inView: sermonsInView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-  
-  const { ref: galleryRef, inView: galleryInView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true
-  });
+
+  // Add introInView and introRef for the introduction section
+  const { ref: introRef, inView: introInView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { ref: eventsRef } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { ref: sermonsRef } = useInView({ threshold: 0.1, triggerOnce: true });
+  useInView({ threshold: 0.1, triggerOnce: true });
 
   useEffect(() => {
     document.title = 'Iglesia Río Nuevo - Familia Joven';
+
+    fetch('http://localhost:1337/api/actividads')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data.data)) {
+          setActivities(data.data);
+        }
+      });
+
+    fetch('http://localhost:1337/api/serie-predicas')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data.data)) {
+          setSeries(data.data);
+        }
+      });
   }, []);
 
   return (
-    <div className="pt-16">
+     <div className="pt-16">
       {/* Hero section */}
       <div className="relative bg-celestial-800 text-white py-24">
         <div 
           className="absolute inset-0 bg-cover bg-center z-0" 
           style={{ 
-            backgroundImage: "url('https://images.pexels.com/photos/1311244/pexels-photo-1311244.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
+            backgroundImage: "url('https://images.pexels.com/photos/853168/pexels-photo-853168.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')",
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"></div>
@@ -108,7 +82,6 @@ const FamiliaJoven = () => {
           </div>
         </div>
       </div>
-
       {/* Introduction section */}
       <section className="py-20 bg-white" ref={introRef}>
         <div className="container mx-auto px-4">
@@ -140,7 +113,7 @@ const FamiliaJoven = () => {
               <div className="relative">
                 <div className="bg-celestial-100 rounded-lg absolute -top-4 -left-4 w-full h-full z-0"></div>
                 <img 
-                  src="https://images.pexels.com/photos/8101501/pexels-photo-8101501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                  src="https://images.pexels.com/photos/5199746/pexels-photo-5199746.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2  " 
                   alt="Jóvenes" 
                   className="rounded-lg shadow-md relative z-10"
                 />
@@ -154,21 +127,21 @@ const FamiliaJoven = () => {
         </div>
       </section>
 
-      {/* Activities section */}
+
+
+
+    <div className="pt-16">
+      {/* Actividades */}
       <section id="actividades" className="py-20 bg-gray-50" ref={eventsRef}>
         <div className="container mx-auto px-4">
-          <h2 className="section-title">Próximas Actividades</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto stagger-anim">
-            {events.map((event, index) => (
-              <div 
-                key={index} 
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300"
-              >
+          <h2 className="text-3xl font-bold mb-10 text-center text-gray-800">Próximas Actividades</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {activities.map(event => (
+              <div key={event.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                 <div className="h-48 overflow-hidden">
-                  <img 
-                    src={event.image} 
-                    alt={event.title} 
+                  <img
+                    src={event.image_url}
+                    alt={event.title}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                   />
                 </div>
@@ -186,57 +159,35 @@ const FamiliaJoven = () => {
                     <MapPin size={16} className="mr-2 text-celestial-500" />
                     <span>{event.location}</span>
                   </div>
-                  <a 
-                    href="#" 
-                    className="text-celestial-600 hover:text-celestial-700 font-medium flex items-center"
-                  >
+                  <a href="#" className="text-celestial-600 hover:text-celestial-700 font-medium flex items-center">
                     Más detalles <ArrowRight size={16} className="ml-1" />
                   </a>
                 </div>
               </div>
             ))}
           </div>
-          
-          <div className="text-center mt-12">
-            <a 
-              href="#" 
-              className="btn-outline"
-            >
-              Ver Todas las Actividades
-            </a>
-          </div>
         </div>
       </section>
 
-      {/* Sermons section */}
+      {/* Series de prédicas */}
       <section className="py-20 bg-white" ref={sermonsRef}>
         <div className="container mx-auto px-4">
-          <h2 className="section-title">Series de Prédicas para Jóvenes</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto stagger-anim">
-            {sermonSeries.map((series, index) => (
-              <div 
-                key={index} 
-                className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300"
-              >
+          <h2 className="text-3xl font-bold mb-10 text-center text-gray-800">Series de Prédicas</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {series.map(serie => (
+              <div key={serie.id} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                 <div className="h-48 overflow-hidden relative">
-                  <img 
-                    src={series.image} 
-                    alt={series.title} 
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={serie.image_url} alt={serie.title} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                    <span className="text-white font-medium">
-                      {series.episodes} episodios
-                    </span>
+                    <span className="text-white font-medium">{serie.episodes} episodios</span>
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{series.title}</h3>
-                  <p className="text-gray-600 mb-4">{series.description}</p>
-                  <a 
-                    href="#" 
-                    className="bg-celestial-500 hover:bg-celestial-600 text-white font-medium py-2 px-4 rounded-md transition duration-300 inline-block w-full text-center"
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">{serie.title}</h3>
+                  <p className="text-gray-600 mb-4">{serie.description}</p>
+                  <a
+                    href="#"
+                    className="bg-celestial-500 hover:bg-celestial-600 text-white font-medium py-2 px-4 rounded-md block text-center"
                   >
                     Ver Serie
                   </a>
@@ -246,103 +197,9 @@ const FamiliaJoven = () => {
           </div>
         </div>
       </section>
-
-      {/* Gallery section */}
-      <section className="py-20 bg-gray-50" ref={galleryRef}>
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800">Galería de Imágenes</h2>
-            <a 
-              href="#" 
-              className="text-celestial-600 hover:text-celestial-700 font-medium flex items-center"
-            >
-              Ver todas <ArrowRight size={16} className="ml-1" />
-            </a>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 stagger-anim">
-            {galleryImages.map((image, index) => (
-              <div 
-                key={index} 
-                className="group relative overflow-hidden rounded-lg shadow-md aspect-square cursor-pointer"
-              >
-                <img 
-                  src={image} 
-                  alt={`Galería ${index + 1}`} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <button className="bg-white/80 hover:bg-white p-2 rounded-full text-celestial-800">
-                    <Image size={20} />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact section */}
-      <section className="py-20 bg-celestial-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="grid md:grid-cols-2">
-              <div className="p-6 md:p-8">
-                <h2 className="text-2xl font-bold mb-6 text-gray-800">Contáctanos</h2>
-                <p className="text-gray-600 mb-6">
-                  ¿Tienes preguntas sobre Familia Joven? Estamos aquí para ayudarte. Ponte en contacto con nosotros.
-                </p>
-                
-                <div className="space-y-4 mb-6">
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-celestial-100 flex items-center justify-center mr-3 flex-shrink-0">
-                      <User size={20} className="text-celestial-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-800">Samuel Torres</h4>
-                      <p className="text-sm text-gray-500">Pastor de Jóvenes</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-celestial-100 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Mail size={20} className="text-celestial-600" />
-                    </div>
-                    <span className="text-gray-600">jovenes@rionuevo.org</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-celestial-100 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Phone size={20} className="text-celestial-600" />
-                    </div>
-                    <span className="text-gray-600">+123 456 7895</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-celestial-100 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Instagram size={20} className="text-celestial-600" />
-                    </div>
-                    <span className="text-gray-600">@rionuevo.jovenes</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="relative h-64 md:h-auto">
-                <img 
-                  src="https://images.pexels.com/photos/7097449/pexels-photo-7097449.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                  alt="Contacto" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6 text-white">
-                  <h3 className="text-xl font-bold">Únete a Nosotros</h3>
-                  <p className="text-sm opacity-90">Viernes 7:00 PM - Auditorio Joven</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    </div>
     </div>
   );
-};
-
-import { User, Phone, Mail, MapPin, Clock, Instagram } from 'lucide-react';
+}
 
 export default FamiliaJoven;

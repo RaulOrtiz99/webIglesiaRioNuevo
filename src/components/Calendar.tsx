@@ -172,7 +172,7 @@ const Calendar = () => {
   useEffect(() => {
     const fetchEventsData = async () => {
       try {
-        const res = await fetch('http://localhost:1337/api/eventos');
+        const res = await fetch('https://portal.iglesiarionuevo.com/api/eventos');
         const json: EventoResponse = await res.json();
 
         console.log('Respuesta de Strapi:', json); // Para debugging

@@ -320,7 +320,7 @@ const GruposCrecimiento = () => {
   useEffect(() => {
     const fetchGroupsData = async () => {
       try {
-        const res = await fetch('http://localhost:1337/api/grupo-crecimientos');
+        const res = await fetch('https://portal.iglesiarionuevo.com/api/grupo-crecimientos');
         const json: StrapiResponse = await res.json();
 
         if (json.data && Array.isArray(json.data)) {
@@ -431,9 +431,9 @@ const GruposCrecimiento = () => {
                 <p className="text-gray-600 mb-6">
                   No se encontraron grupos. Asegúrate de tener registros en "Grupos de Crecimiento".
                 </p>
-                <button className="bg-celestial-500 hover:bg-celestial-600 text-white font-medium py-2 px-6 rounded-md transition duration-300 inline-block">
+                {/* <button className="bg-celestial-500 hover:bg-celestial-600 text-white font-medium py-2 px-6 rounded-md transition duration-300 inline-block">
                   Contactar a Coordinador de Grupos
-                </button>
+                </button> */}
               </div>
             ) : (
               grupos.map((grupo) => (

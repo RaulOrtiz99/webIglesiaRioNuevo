@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 const socialLinks = [
   {
     platform: 'Facebook',
-    url: 'https://facebook.com',
+    url: 'https://www.facebook.com/IEMRioNuevo',
     icon: <Facebook size={24} className="text-white" />,
     username: '@iglesiarionuevo',
     color: 'bg-blue-600',
@@ -13,7 +13,7 @@ const socialLinks = [
   },
   {
     platform: 'Instagram',
-    url: 'https://instagram.com',
+    url: 'https://www.instagram.com/iglesiarionuevo/',
     icon: <Instagram size={24} className="text-white" />,
     username: '@iglesiarionuevo',
     color: 'bg-pink-600',
@@ -21,7 +21,7 @@ const socialLinks = [
   },
   {
     platform: 'YouTube',
-    url: 'https://youtube.com',
+    url: 'https://www.youtube.com/@iglesiaevangelicamundialri4840/videos',
     icon: <Youtube size={24} className="text-white" />,
     username: 'Iglesia Río Nuevo',
     color: 'bg-red-600',
@@ -29,7 +29,7 @@ const socialLinks = [
   },
   {
     platform: 'TikTok',
-    url: 'https://tiktok.com',
+    url: 'https://www.tiktok.com/@iglesiarionuevo',
     icon: <Video size={24} className="text-white" />,
     username: '@familiajoven',
     color: 'bg-black',
@@ -38,7 +38,7 @@ const socialLinks = [
 ];
 
 const SocialMedia = () => {
-  const { ref, inView } = useInView({
+  const { ref } = useInView({
     threshold: 0.1,
     triggerOnce: true
   });
