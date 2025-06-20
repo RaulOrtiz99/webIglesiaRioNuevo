@@ -7,6 +7,7 @@ import Calendar from '../components/Calendar';
 import SocialMedia from '../components/SocialMedia';
 import Contact from '../components/Contact';
 import { useEffect } from 'react';
+import QuienesSomos from '../components/QuienesSomos';
 
 const Home = () => {
   useEffect(() => {
@@ -16,6 +17,7 @@ const Home = () => {
   return (
     <>
       <Hero />
+      <QuienesSomos/>
       <LatestSermon />
       <Services />
       <Calendar />
