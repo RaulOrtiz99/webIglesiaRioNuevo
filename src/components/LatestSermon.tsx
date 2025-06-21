@@ -119,7 +119,7 @@ const LatestSermon = () => {
   useEffect(() => {
     const fetchSermonData = async () => {
       try {
-        const res = await fetch('http://localhost:1337/api/predicas');
+        const res = await fetch('https://portal.iglesiarionuevo.com/api/predicas');
         const json = await res.json();
 
         console.log('📦 Respuesta completa de Strapi:', json);
@@ -248,7 +248,7 @@ const LatestSermon = () => {
       </section>
     );
   }
-
+//bianquito rules
   return (
     <section className="py-20 bg-white" ref={ref}>
       <div className="container mx-auto px-4">

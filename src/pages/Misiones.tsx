@@ -418,7 +418,7 @@ const Misiones = () => {
   // Función para obtener misioneros
   const fetchMissionaries = async (): Promise<void> => {
     try {
-      const response = await fetch('http://localhost:1337/api/misioneros');
+      const response = await fetch('https://portal.iglesiarionuevo.com/api/misioneros');
       if (!response.ok) {
         throw new Error('Error al obtener misioneros');
       }
